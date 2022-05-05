@@ -10,7 +10,6 @@ export ACCOUNT_ID=$(aws sts get-caller-identity --output text --query Account)
 export AZS=($(aws ec2 describe-availability-zones --query 'AvailabilityZones[].ZoneName' --output text --region $AWS_REGION))
 
 # Deploy kms
-. ./kms.sh $ENV
 export MASTER_ARN=$(aws kms describe-key --key-id alias/$ENV-eksctl --query KeyMetadata.Arn --output text)
 
 # sed
