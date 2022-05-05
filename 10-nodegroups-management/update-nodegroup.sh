@@ -1,4 +1,4 @@
 eksctl upgrade nodegroup \
 	  --name=nodegroup \
-	    --cluster=cdn1-eksctl \
+	    --cluster=$ENV-eksctl \
 	      --kubernetes-version=1.20
