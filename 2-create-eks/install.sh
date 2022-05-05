@@ -19,5 +19,5 @@ sed -e 's|ENV|'$ENV'|; s|AWS_REGION|'$AWS_REGION'|; s|MASTER_ARN|'$MASTER_ARN'|'
 # Install eks
 /usr/local/bin/eksctl create cluster -f $ENV-eksctl.yaml
 
-# Post Install
-. ./post_install.sh $ENV
+# # Post Install
+# . ./post_install.sh $ENV
