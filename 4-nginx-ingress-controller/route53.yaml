@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Route53
+
+Parameters:
+  HostedZoneName:
+    Default: ""
+    Type: String
+  Name:
+    Default: ""
+    Type: String
+  AlbName:
+    Default: ""
+    Type: String
+  HostedZoneId:
+    Default: ""
+    Type: String
+
+Resources:
+  Route53:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      Type: A
+      HostedZoneName: !Ref HostedZoneName
+      Name: !Ref Name
+      AliasTarget:
+        DNSName: !Ref AlbName
+        HostedZoneId: !Ref HostedZoneId

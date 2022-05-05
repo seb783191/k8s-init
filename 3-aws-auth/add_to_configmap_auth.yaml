@@ -1,0 +1,5 @@
+
+- groups:
+  - eks-console-dashboard-restricted-access-group
+  userarn: ${OWN_ARN}
+  username: system:node:{{EC2PrivateDNSName}}

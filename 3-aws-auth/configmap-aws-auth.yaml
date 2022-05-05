@@ -1,0 +1,3 @@
+Configmap pour les droits de voir les infos EKS dans la console AWS
+k get configmap aws-auth -nkube-system -oyaml
+

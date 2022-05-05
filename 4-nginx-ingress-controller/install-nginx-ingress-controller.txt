@@ -1,0 +1,6 @@
+Déployer le deploy.yaml custo issue de 
+https://kubernetes.github.io/ingress-nginx/deploy/
+
+wget https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.46.0/deploy/static/provider/aws/deploy.yaml
+Puis modifier le service pour utiliser : elb (pouvoir mettre des security groups) et pas nlb
+

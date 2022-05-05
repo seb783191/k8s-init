@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: origin-console
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: origin-console
+  template:
+    metadata:
+      labels:
+        app: origin-console
+    spec:
+      terminationGracePeriodSeconds: 10
+      serviceAccountName: console-service-account
+      containers:
+        - name:  origin-console
+          image: quay.io/openshift/origin-console:4.9.0
+#          image: quay.io/openshift/origin-console:4.3.0
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 9000
+#          command: ["/opt/bridge/bin/bridge", "--public-dir=/opt/bridge/static", "-user-auth=openshift"]
+          #command: ["/opt/bridge/bin/bridge", "--public-dir=/opt/bridge/static", "--k8s-mode=in-cluster"]
