@@ -4,4 +4,6 @@ if [ $# -lt 2 ]; then
   exit 1
 fi
 
+
+ENV=$1
 aws kms create-alias --alias-name alias/$ENV-eksctl --target-key-id $(aws kms create-key --query KeyMetadata.Arn --output text)
