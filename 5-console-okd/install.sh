@@ -14,5 +14,5 @@ values_file="values_final.yaml"
 echo -e "host: $url\nauth: $encoded_auth" > $values_file
 
 cat $values_file
-helm upgrade --install origin-console -f $values_file . -norigin-console --create-namespace
+helm upgrade --install origin-console -f $values_file . -norigin-console 
 rm auth_file $values_file
