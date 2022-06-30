@@ -1,0 +1,130 @@
+host: url argocd desiree (exemple: argocd.ENV.domainName)
+
+cluster:
+  eks:
+    enabled: true
+    config: base64 config (exemple : echo -n '{"bearerToken":"token du serviceAccount argocd application-controller en base64","tlsClientConfig":{"insecure":true}}' |base64)
+    name: Y2x1c3Rlci1la3M=
+    server: aHR0cHM6Ly9rdWJlcm5ldGVzLmRlZmF1bHQuc3ZjLmNsdXN0ZXIubG9jYWw=
+
+
+resourceCustomizations: |
+  apps/Deployment:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+        - '.metadata.labels."helm-revision"'
+        - '.spec.template.metadata.labels."helm-revision"'
+  apps/StatefulSet:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  Service:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  Pod:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  networking.k8s.io/Ingress:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  extensions/Ingress:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  networking.k8s.io/NetworkPolicy:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  Secret:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  k8s.bouyguestelecom.fr/PrismeConnector:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  k8s.bouyguestelecom.fr/A7Resource:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  k8s.bouyguestelecom.fr/A7Service:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  k8s.bouyguestelecom.fr/BouyguesTemplateApplication:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  k8s.bouyguestelecom.fr/BouyguesWebApplication:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  k8s.bouyguestelecom.fr/MicroTemplateApplication:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  k8s.bouyguestelecom.fr/MicroFrontApplication:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  monitoring.coreos.com/PrometheusRule:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  policy/PodDisruptionBudget:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  kubeshift.bouyguestelecom.fr/EgressNetworkPolicyRequest:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  ConfigMap:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  autoscaling/HorizontalPodAutoscaler:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  k8s.bouyguestelecom.fr/BouyguesApiResource:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  PersistentVolumeClaim:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  ServiceAccount:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  batch/Job:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  rds.aws.kloud.bouyguestelecom.fr/RDSInstance:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  monitoring.coreos.com/ServiceMonitor:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  batch/CronJob:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  access.k8s.bouyguestelecom.fr/PrivilegeEscalationNotificationRule:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+  bcloud.bouyguestelecom.fr/Database:
+    ignoreDifferences: |
+      jqPathExpressions:
+        - '.metadata.labels."app.kubernetes.io/instance"'
+
