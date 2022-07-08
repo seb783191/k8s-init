@@ -1,9 +1,10 @@
-host: url argocd desiree (exemple: argocd.ENV.domainName)
+host: ""
 
 cluster:
   eks:
     enabled: true
-    config: base64 config (exemple : echo -n '{"bearerToken":"token du serviceAccount argocd application-controller en base64","tlsClientConfig":{"insecure":true}}' |base64)
+    #  echo -n '{"bearerToken":"token du serviceAccount argocd application-controller en base64","tlsClientConfig":{"insecure":true}}' |base64
+    config: ""
     name: Y2x1c3Rlci1la3M=
     server: aHR0cHM6Ly9rdWJlcm5ldGVzLmRlZmF1bHQuc3ZjLmNsdXN0ZXIubG9jYWw=
 

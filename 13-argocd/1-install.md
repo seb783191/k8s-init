@@ -1,10 +1,12 @@
+Installer l'opérateur argocd depuis OperatorHub: All namespaces
+
 Creer le namespace:
 
   kubectl create namespace argocd
 
 Installer une premier fois le helm
 
-  helm upgrade --install argocd -f values.yaml . -nargocd
+  helm upgrade --install argocd -f values.yaml . -nargocd --set host="son_url : argocd.ENV.euw3-poc.pub.nbyt.fr"
 
   Tous les pods devraient démarrer
 
