@@ -1,0 +1,72 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: xpostgresqlinstancessg.aws.database.example.org
+  labels:
+    provider: aws
+    guide: quickstart
+    vpc: default
+spec:
+  writeConnectionSecretsToNamespace: crossplane-system
+  compositeTypeRef:
+    apiVersion: database.example.org/v1alpha1
+    kind: XPostgreSQLInstanceSG
+  resources:
+    - name: securitygroup
+      base:
+        apiVersion: ec2.aws.crossplane.io/v1beta1
+        kind: SecurityGroup
+        spec:
+          providerConfigRef:
+            name: aws-provider
+          forProvider:
+            region: us-east-1
+            vpcId: vpc-01f01ffb00cbcfc77
+            groupName: sg-rds-crossplane
+            description: TestSG
+            ingress:
+              - fromPort: 5432
+                toPort: 5432
+                ipProtocol: tcp
+                ipRanges:
+                  - cidrIp: 192.168.0.0/16
+      patches:
+        - fromFieldPath: "metadata.name"
+          toFieldPath: "spec.forProvider.groupName"
+    - name: rdsinstance
+      base:
+        apiVersion: database.aws.crossplane.io/v1beta1
+        kind: RDSInstance
+        spec:
+          forProvider:
+            vpcSecurityGroupIDSelector:
+              matchControllerRef: true
+            applyModificationsImmediately: true
+            dbSubnetGroupName: testgpe
+            region: us-east-1
+            dbInstanceClass: db.t4g.micro
+            masterUsername: masteruser
+            engine: postgres
+            engineVersion: "14"
+            skipFinalSnapshotBeforeDeletion: true
+            publiclyAccessible: false
+          writeConnectionSecretToRef:
+            namespace: crossplane-system
+      patches:
+        - fromFieldPath: "metadata.uid"
+          toFieldPath: "spec.writeConnectionSecretToRef.name"
+          transforms:
+            - type: string
+              string:
+                fmt: "%s-postgresql"
+        - fromFieldPath: "spec.parameters.storageGB"
+          toFieldPath: "spec.forProvider.allocatedStorage"
+        - fromFieldPath: "spec.parameters.dbInstanceClass"
+          toFieldPath: "spec.forProvider.dbInstanceClass"
+        - fromFieldPath: "spec.parameters.engineVersion"
+          toFieldPath: "spec.forProvider.engineVersion"
+      connectionDetails:
+        - fromConnectionSecretKey: username
+        - fromConnectionSecretKey: password
+        - fromConnectionSecretKey: endpoint
+        - fromConnectionSecretKey: port

@@ -1,0 +1,41 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xpostgresqlinstancessg.database.example.org
+spec:
+  group: database.example.org
+  names:
+    kind: XPostgreSQLInstanceSG
+    plural: xpostgresqlinstancessg
+  claimNames:
+    kind: PostgreSQLInstanceSG
+    plural: postgresqlinstancessg
+  connectionSecretKeys:
+    - username
+    - password
+    - endpoint
+    - port
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              parameters:
+                type: object
+                properties:
+                  storageGB:
+                    type: integer
+                  dbInstanceClass:
+                    type: string
+                  engineVersion:
+                    type: string
+                required:
+                  - storageGB
+            required:
+              - parameters
