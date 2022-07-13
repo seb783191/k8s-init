@@ -1,14 +1,14 @@
 #https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html
 
 #!/bin/bash
-if [ $# -lt 1 ]; then
-  echo "Argument manquant: <Environnement:[cdn1|cdn2|...]>"
+if [ $# -lt 2 ]; then
+  echo "Argument manquant: <Environnement:[cdn1|cdn2|...], ServiceAccountName>"
   exit 1
 fi
 
 ENV=$1
 NAMESPACE=crossplane-system
-SERVICE_ACCOUNT_NAME=SERVICEACCOUNT_provider-aws-XXXXXXXXX
+SERVICE_ACCOUNT_NAME=$2
 file=trust-$ENV.json
 
 export ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
