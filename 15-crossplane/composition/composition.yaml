@@ -33,25 +33,15 @@ spec:
       patches:
         - fromFieldPath: "metadata.name"
           toFieldPath: "spec.forProvider.groupName"
-    - name: rdsinstance
+    - name: dbparametergroup
       base:
-        apiVersion: database.aws.crossplane.io/v1beta1
-        kind: RDSInstance
+        apiVersion: rds.aws.crossplane.io/v1alpha1
+        kind: DBParameterGroup
         spec:
           forProvider:
-            vpcSecurityGroupIDSelector:
-              matchControllerRef: true
-            applyModificationsImmediately: true
-            dbSubnetGroupName: testgpe
             region: us-east-1
-            dbInstanceClass: db.t4g.micro
-            masterUsername: masteruser
-            engine: postgres
-            engineVersion: "14"
-            skipFinalSnapshotBeforeDeletion: true
-            publiclyAccessible: false
-          writeConnectionSecretToRef:
-            namespace: crossplane-system
+            description: "DBParameterGroup from composition"
+            dbParameterGroupFamily: postgres10
       patches:
         - fromFieldPath: "metadata.uid"
           toFieldPath: "spec.writeConnectionSecretToRef.name"

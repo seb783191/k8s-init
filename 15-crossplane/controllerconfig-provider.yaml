@@ -2,8 +2,9 @@ apiVersion: pkg.crossplane.io/v1alpha1
 kind: ControllerConfig
 metadata:
   name: aws-config
+  namespace: crossplane-system
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::AWS_ACCOUNTID:role/ENV-eksctl-crossplane-system
+    eks.amazonaws.com/role-arn: arn:aws:iam::ACCOUNT_ID:role/cdn1-eksctl-crossplane-system
 spec:
   podSecurityContext:
     fsGroup: 2000
