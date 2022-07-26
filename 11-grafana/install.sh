@@ -1,23 +1,10 @@
 #!/bin/bash
-cat << EoF > grafana.yaml
-datasources:
-  datasources.yaml:
-    apiVersion: 1
-    datasources:
-    - name: Prometheus
-      type: prometheus
-      url: http://prometheus-server.prometheus.svc.cluster.local
-      access: proxy
-      isDefault: true
-EoF
+# add grafana Helm repo
+helm repo add grafana https://grafana.github.io/helm-charts
 
 kubectl create namespace grafana
 
-helm install grafana grafana/grafana \
-    --namespace grafana \
-    --set persistence.storageClassName="gp2" \
-    --set persistence.enabled=false \
-    --set adminPassword='EKS!sAWSome' \
-    --values grafana.yaml \
-    --set service.type=ClusterIP
+helm dependency build
+
+helm upgrade --install grafana -f values.yaml . -n grafana
 

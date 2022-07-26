@@ -1,2 +1,19 @@
-host: grafana
+host: ""
 auth: ""
+
+grafana:
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus-server.prometheus.svc.cluster.local
+        access: proxy
+        isDefault: true
+  persistence:
+    storageClassName: gp2
+    enabled: false
+  adminPassword: 'EKS!sAWSome'
+  service:
+    type: ClusterIP
